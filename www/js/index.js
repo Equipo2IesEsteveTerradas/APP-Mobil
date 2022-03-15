@@ -40,6 +40,7 @@ function onDeviceReady() {
             }
             else {
                 alert("Logged succesfully as "+userEl.value);
+                window.location.assign('prueba.html');
             }
         }
         else{
