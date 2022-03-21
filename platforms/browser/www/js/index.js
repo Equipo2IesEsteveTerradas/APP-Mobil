@@ -25,25 +25,28 @@ function onDeviceReady() {
     // Cordova is now initialized. Have fun!
     console.log('Running cordova-' + cordova.platformId + '@' + cordova.version);
     //document.getElementById('deviceready').classList.add('ready');
-      let users = {pepe : 123 , lola : 456}
     $("#loginbut").click(function() {
-        console.log("Dins de la funcio");
-        let userEl = document.getElementById("userL");
-        let passEl = document.getElementById("passL");
         let urlEl = document.getElementById("urlL");
+        if (urlEl.value != "https://class-vr-room-api.herokuapp.com") {
+            alert("Could not acces correctly to the following route: "+urlEl.value)
+            }
+        $.ajax({
+            method: "GET",
+            url: $("#urlL").val()+"/api/login",
+            data: {"username": $("#userL").val(),"password": $("#passL").val()},
+            datatype: "json"
+        }).done(function(login) {
+            if (login["status"] == "OK") {
+                console.log("Login correcto");
+                localStorage.setItem("userToken",login["session_token"]);
+                window.location.assign('cursos.html');
 
-        if (users[userEl.value] == passEl.value) {
-            if (urlEl.value != "https://class-vr-room-api.herokuapp.com") {
-                alert("Could not acces correctly to the following route: "+urlEl.value)
             }
             else {
-                alert("Logged succesfully as "+userEl.value);
-                window.location.assign('cursos.html');
+                console.log("Login incorrecto");
             }
-        }
-        else{
-            alert("Usuario o contrasena incorrectos")
-            
-        }    
+
+        });
+
     })
 };
