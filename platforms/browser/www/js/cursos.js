@@ -26,11 +26,9 @@ function onDeviceReady() {
     $('.sidenav').sidenav();
     $('.fixed-action-btn').floatingActionButton();
     $('.tabs').tabs({"swipeable":true});
-    // Cordova is now initialized. Have fun!
-    console.log('Running cordova-' + cordova.platformId + '@' + cordova.version);
+
     //document.getElementById('deviceready').classList.add('ready');
     $("#mostrarC").click(function() {
-        console.log("Prueba");
         console.log("El token es: "+localStorage.getItem("userToken"));
         $('#llista_principal').empty();
 
@@ -42,25 +40,51 @@ function onDeviceReady() {
             for (i in courses["course_list"]) {
                 console.log(courses["course_list"][i]["title"]);
 
-
-
                 let newElement = $("<a id='listelement' class='collection-item' href='#!'>"+courses["course_list"][i]["title"]+"</a>");
-            
+                localStorage.setItem("IdCurso",courses["course_list"][i]["courseID"]);
+                
             newElement.click( function() {
-              //Creacion de objetos graficos
-              let newh1 = $("<h1>"+courses["course_list"][i]["title"]+"</h1>");
-              let newsummary = $("<p>"+courses["course_list"][i]["title"]+"</p>");
-              let newimage = $("<img src='"+courses["course_list"][i]["title"]+"'></img>");
-              //Vaciando el div de la pagina 2
-              $('#test-swipe-2').empty();
-              //Agregando objetos graficos a la pagina 2
-              $('#test-swipe-2').append(newh1);
-              $('#test-swipe-2').append(newsummary);
-              $('#test-swipe-2').append(newimage);
-              //Saltamos a la pagina 2
-              $('.tabs').tabs("select", "test-swipe-2");
-            })
+                console.log(localStorage.getItem("IdCurso"));
+                $.ajax({
+                    method: "GET",
+                    url: "https://class-vr-room-api.herokuapp.com/api/get_course_details?id="+localStorage.getItem("IdCurso"),
+                    datatype: "json"
+                }).done(function(details) {
+                    //Creacion de objetos graficos
 
+                    //Vaciando el div de la pagina 2
+                    $('#test-swipe-2').empty();
+
+
+                    let newVrtaskHeader = $("<h3>"+"VR TASKS"+"</h3>")
+                    $('#test-swipe-2').append(newVrtaskHeader);
+
+                    for (j in details["course"][0]["vr_tasks"]) {
+                
+                        let newvrtask = $("<p>"+details["course"][0]["vr_tasks"][j]["title"]+"</p>");
+                        //let newimage = $("<img src='"+courses["course_list"][i]["title"]+"'></img>");
+                        $('#test-swipe-2').append(newvrtask);
+
+                    }
+
+                    let newtaskHeader = $("<h3>"+"TASKS"+"</h3>")
+                    $('#test-swipe-2').append(newtaskHeader);
+
+                    for (j in details["course"][0]["tasks"]) {
+                
+                        let newtask = $("<p>"+details["course"][0]["tasks"][j]["title"]+"</p>");
+                        $('#test-swipe-2').append(newtask);
+
+                    }
+
+                     //Agregando objetos graficos a la pagina 2
+                    //$('#test-swipe-2').append(newimage);
+                    //Saltamos a la pagina 2
+                    $('.tabs').tabs("select", "test-swipe-2");
+                    })
+                });
+
+            //$('#llista_principal').append(newVrHeader);
             $('#llista_principal').append(newElement);
             }
         });
