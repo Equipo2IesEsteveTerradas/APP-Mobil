@@ -37,21 +37,31 @@ function onDeviceReady() {
             url: "https://class-vr-room-api.herokuapp.com/api/get_courses",
             datatype: "json"
         }).done(function(courses) {
+            let IdCursos = [];
             for (i in courses["course_list"]) {
                 console.log(courses["course_list"][i]["title"]);
-
-                let newElement = $("<a id='listelement' class='collection-item' href='#!'>"+courses["course_list"][i]["title"]+"</a>");
-                localStorage.setItem("IdCurso",courses["course_list"][i]["courseID"]);
-                
+                console.log(courses["course_list"][i]["courseID"]);
+                let newElement = $("<a id="+`${courses["course_list"][i]["courseID"]}`+" class='collection-item' href='#!'>"+courses["course_list"][i]["title"]+"</a>");
+                IdCursos.push(courses["course_list"][i]["courseID"])
             newElement.click( function() {
-                console.log(localStorage.getItem("IdCurso"));
+                console.log(newElement);
+                let CursoAMostrar = "";
+                for (k in IdCursos) {
+                    console.log(event.srcElement.id)
+                    if(IdCursos[k] == event.srcElement.id) {
+                        CursoAMostrar = IdCursos[k];
+                    }
+
+                }
+                console.log(CursoAMostrar);
+
                 $.ajax({
                     method: "GET",
-                    url: "https://class-vr-room-api.herokuapp.com/api/get_course_details?id="+localStorage.getItem("IdCurso"),
+                    //Para que las tascas funcionen bien se tendra que poner ya la URL pertinente al curso
+                    url: "https://class-vr-room-api.herokuapp.com/api/get_course_details?id="+CursoAMostrar,
                     datatype: "json"
                 }).done(function(details) {
                     //Creacion de objetos graficos
-
                     //Vaciando el div de la pagina 2
                     $('#test-swipe-2').empty();
 
@@ -87,6 +97,8 @@ function onDeviceReady() {
             //$('#llista_principal').append(newVrHeader);
             $('#llista_principal').append(newElement);
             }
+            //localStorage.setItem("IdCurso",courses["course_list"][i]["courseID"]);
+            //localStorage.setItem("IdCurso",IdCursos);
         });
 
     })
