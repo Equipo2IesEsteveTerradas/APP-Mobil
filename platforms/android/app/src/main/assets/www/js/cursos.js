@@ -97,7 +97,7 @@ function onDeviceReady() {
 
                 for (j in details["course"][0]["vr_tasks"]) {
             
-                    let newvrtask = $("<div class='actividad'><button class='actividad' href='#!'>"+details["course"][0]["vr_tasks"][j]["title"]+"</button></div>");
+                    let newvrtask = $("<div><a class='actividad'>"+details["course"][0]["vr_tasks"][j]["title"]+"</a></div>");
                     let idVr = details["course"][0]["vr_tasks"][j]["ID"];
                     newvrtask.click(idVrTasks(idVr));
                     $('#activities').append(newvrtask);
@@ -109,7 +109,7 @@ function onDeviceReady() {
 
                 for (j in details["course"][0]["tasks"]) {
             
-                    let newtask = $("<div class='actividad'><button class='actividad' href='#!'>"+details["course"][0]["tasks"][j]["title"]+"</button></div>");
+                    let newtask = $("<div><button class='actividad'>"+details["course"][0]["tasks"][j]["title"]+"</button></div>");
                     $('#activities').append(newtask);
 
                 }

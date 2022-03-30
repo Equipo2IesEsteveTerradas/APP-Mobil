@@ -1,31 +1,57 @@
 <!DOCTYPE html>
 <html>
 <head>
-
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link href="css/materialize.css" type="text/css" rel="stylesheet" media="screen,projection"/>
+    <link href="css/prelogin.css" type="text/css" rel="stylesheet"/>
+    <link href="css/index.css" type="text/css" rel="stylesheet"/>
+    <script type="text/javascript" src="js/materialize.min.js"></script>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title></title>
     <script type="text/javascript">
     </script>
 </head>
-<body style="background-color: orange;">
-<form style="background-color: rgb(241, 173, 46); text-align: center; ">
-    <h1>LogIn</h1>
-    <label>Name: </label>
-    <br>
-    <input type="text" name="username" id="userL">
-    <br>
-    <label>Password: </label>
-    <br>
-    <input type="Password" name="password" id="passL">
-    <br>
-    <label>Url class VROOM: </label>
-    <br>
-    <input type="text" name="url" id="urlL">
-    <br>
-    <input type="Button" name="Submit" value="LogIn" id="loginbut">
-
-</form>
+<body>
+    <div class="principal">
+    <div class="header">
+        <img src="./img/LOGO_VR.png" alt="LOGO_VR">
+    </div>
+    <div class="loginCard">
+        <div>
+          <div>
+            <div>
+              <h1 class="titulo">INICIAR SESION</h1>
+              <form>
+                <label>Nombre de usuario: </label>
+                <br>
+                <input type="text" name="username" id="userL">
+                <br>
+                <label>Contraseña: </label>
+                <br>
+                <input type="Password" name="password" id="passL">
+                <br>
+                <label>Url class VROOM: </label>
+                <br>
+                <input type="text" name="url" id="urlL" value=https://class-vr-room-api.herokuapp.com>
+                <br>
+            </form>
+            </div>
+            <div class="card-action">
+                <input type="Button" name="Submit" value="LogIn" id="loginbut">
+            </div>
+          </div>
+        </div>
+    </div>
+  <!--Pagina Login  -->
+  
+          
+      <!--  Scripts  Tendre que quitar algunos si quiero que no se queje y de errores-->
+      <script src="cordova.js"></script>
+      <script src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+      <script src="js/materialize.js"></script>
+      <script src="js/init.js"></script>
+    
 </body>
 <script src="cordova.js"></script><script type="text/javascript" src="js/jquery-1.11.1.min.js" id="cordova-jquery"></script><script type="text/javascript" id="jqm-trans-disable">
     /* For having a faster transition */

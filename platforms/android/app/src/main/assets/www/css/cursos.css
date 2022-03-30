@@ -1,0 +1,40 @@
+
+.collection {
+    display: flex;
+    align-items: flex-start;
+}
+
+.collection-item {
+ margin-top: 20%;
+}
+.fotoNav {
+    display: flex;
+    justify-content: left;
+    height: 50%;
+    width: 25%;
+}
+
+.calificaciones{
+    display: flex;
+    justify-content: left;
+}
+
+.calificaciones button {
+    margin-left: 25%;
+    margin-right: 5%;
+    max-height: 50%;
+    background-color: #157cb2;
+    padding: 3px;
+}
+
+.datosNav {
+    display:inline-flex;
+}
+
+.nombreNav{
+    justify-content: right;
+}
+
+nav{
+    background-color: #157cb2;
+}
