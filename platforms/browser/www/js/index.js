@@ -41,6 +41,7 @@ function onDeviceReady() {
                 console.log("Login correcto");
                 localStorage.setItem("userToken",login["session_token"]);
                 localStorage.setItem("username",userEl.value);
+                localStorage.setItem("UserID",login["idUser"]);
                 window.location.assign('cursos.html');
 
             }

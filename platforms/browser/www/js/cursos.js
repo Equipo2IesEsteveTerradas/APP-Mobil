@@ -30,7 +30,55 @@ function idVrTasks(taskID) {
             datatype: "json",
         }).done(function(dades){
             //console.log(dades["pin"]);
-            $("#pruebaPin").text(dades["pin"]);
+            $("#tituloPin").text(dades["pin"]);
+
+        }).fail(function() {
+            console.log("Error");
+        });
+    }
+}
+
+function grades(CursoAMostrar,taskID) {
+    return function(){
+        $.ajax({
+            method: "GET",
+            url: "https://class-vr-room-api.herokuapp.com/api/get_course_details?id="+CursoAMostrar,
+            datatype: "json"
+        }).done(function(details){
+
+            //QUEDA REVIAR ESTA PARTE
+
+            console.log("Hola")
+            //Recorremos las diferentes VRTASKS
+            for (i in details["course"][0]["vr_tasks"]) {
+
+                //Se tiene que cambiar de sitio los dict
+                let mostrarPin = false;
+
+                //Comprobamos que la ID de la VrTask sea la que nos interesa
+                if (details["course"][0]["vr_tasks"][i]["ID"] == taskID) {
+                    console.log(details["course"][0]["vr_tasks"][i]);
+                    //Recorremos y omprobamos las diferentes completions que haya del usuario
+                    for (j in details["course"][0]["vr_tasks"][i]["completions"]) {
+                        if (details["course"][0]["vr_tasks"][i]["completions"][j]["studentID"] == localStorage.getItem("UserID")) {
+                            console.log(details["course"][0]["vr_tasks"][i]["completions"][j]["grade"])
+                            $("#notaEj").text(details["course"][0]["vr_tasks"][i]["completions"][j]["grade"]);
+                            $("#fallosEj").text(details["course"][0]["vr_tasks"][i]["completions"][j]["autograde"]["failed_items"]);
+                            $("#aciertosEj").text(details["course"][0]["vr_tasks"][i]["completions"][j]["autograde"]["failed_items"]);
+                            $("#comentariosEj").text(details["course"][0]["vr_tasks"][i]["completions"][j]["autograde"]["comments"]);
+                            mostrarPin = true;
+                            //Se pueden crear diccionarios para almacenar las diferentes cantidades de Datos
+                            //y luego que estos datos se vayan anadiendo mediante un for a una ul por cada completion
+                            
+                            //(details["course"][0]["vr_tasks"][i]["completions"][j]["autograde"]["failed_items"])
+                            //(details["course"][0]["vr_tasks"][i]["completions"][j]["autograde"]["passed_items"])
+                        }
+                    }
+                    if (mostrarPin == true) {
+                        $("#tituloPin").text(idVrTasks(taskID));
+                    }
+                } 
+            }
             $('#modal1').modal();
             $('#modal1').modal('open');
         }).fail(function() {
@@ -87,6 +135,7 @@ function onDeviceReady() {
                 url: "https://class-vr-room-api.herokuapp.com/api/get_course_details?id="+CursoAMostrar,
                 datatype: "json"
             }).done(function(details) {
+                console.log(details);
                 //Creacion de objetos graficos
                 //Vaciando el div de la pagina 2
                 $('#activities').empty();
@@ -99,7 +148,7 @@ function onDeviceReady() {
             
                     let newvrtask = $("<div class='actividad'><button class='actividad' href='#!'>"+details["course"][0]["vr_tasks"][j]["title"]+"</button></div>");
                     let idVr = details["course"][0]["vr_tasks"][j]["ID"];
-                    newvrtask.click(idVrTasks(idVr));
+                    newvrtask.click(grades(CursoAMostrar,idVr));
                     $('#activities').append(newvrtask);
 
                 }
