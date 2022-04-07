@@ -27,6 +27,7 @@ function onDeviceReady() {
     //document.getElementById('deviceready').classList.add('ready');
     $("#loginbut").click(function() {
         let urlEl = document.getElementById("urlL");
+        let userEl = document.getElementById("userL")
         if (urlEl.value != "https://class-vr-room-api.herokuapp.com") {
             alert("Could not acces correctly to the following route: "+urlEl.value)
             }
@@ -39,6 +40,8 @@ function onDeviceReady() {
             if (login["status"] == "OK") {
                 console.log("Login correcto");
                 localStorage.setItem("userToken",login["session_token"]);
+                localStorage.setItem("username",userEl.value);
+                localStorage.setItem("UserID",login["idUser"]);
                 window.location.assign('cursos.html');
 
             }

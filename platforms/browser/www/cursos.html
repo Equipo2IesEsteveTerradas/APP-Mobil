@@ -3,54 +3,80 @@
 <head>
   <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
-  <title>Parallax Template - Materialize</title>
+  <title>Cursos y actividades</title>
 
   <!-- CSS  -->
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
   <link href="css/materialize.css" type="text/css" rel="stylesheet" media="screen,projection"/>
-  <link href="css/style.css" type="text/css" rel="stylesheet" media="screen,projection"/>
+  <link href="css/cursos.css" type="text/css" rel="stylesheet"/>
   <meta name="format-detection" content="telephone=no">
   <meta name="msapplication-tap-highlight" content="no">
   <meta name="viewport" content="initial-scale=1, width=device-width, viewport-fit=cover">
   <meta name="color-scheme" content="light dark">
 </head>
 <body>
-  <nav class="white" role="navigation">
-    <div class="nav-wrapper container">
-      <a id="logo-container" href="#" class="brand-logo">Logo</a>
-      <ul class="right hide-on-med-and-down">
-        <li><a href="#">Navbar Link</a></li>
+  <nav>
+    <div id="prueba">
+      <ul class="datosNav">
+        <img src="./img/LOGO_VR.png" class="fotoNav">
+        <li><a href="" class="nombreNav" id="userPrueba">Nombre: </a></li>
       </ul>
-
-      <ul id="nav-mobile" class="sidenav">
-        <li><a href="#">Navbar Link</a></li>
-      </ul>
-      <a href="#" data-target="nav-mobile" class="sidenav-trigger"><i class="material-icons">menu</i></a>
     </div>
   </nav>
 
   <ul id="tabs-swipe-demo" class="tabs">
-    <li class="tab col s3"><a class="active" href="#test-swipe-1">Courses</a></li>
-    <li class="tab col s3"><a href="#test-swipe-2">Tasks</a></li>
-    <li class="tab col s3"><a href="#test-swipe-3">Others</a></li>
+    <li class="tab col s3"><a class="active" href="#test-swipe-1">Cursos</a></li>
+    <li class="tab col s3"><a href="#test-swipe-2">Detalles Curso</a></li>
+   <!-- <li class="tab col s3"><a href="#test-swipe-3">Others</a></li>-->
   </ul>
   <!--Page 1-->
   <div id = "test-swipe-1" class="col s12">
     <div class="container">
-      <div class="input-field col s6">
-        <input placeholder="Placeholder" id="first_name" type="text" class="validate">
-        <label for="first_name"></label>
+      <div class="calificaciones">   
+        <h4>Cursos</h4>  
+        <button >Calificaciones</button>      
       </div>
-      <button id = "mostrarC" class="btn waves-effect waves-light" type="submit" name="action">Show courses<i class="material-icons right">assignment</i></button>
-        
         <div class="collection" id = "llista_principal">
         </div>
               
       </div>
     </div>
   </div>
-  <div id="test-swipe-2" class="col s12 red"></div>
-  <div id="test-swipe-3" class="col s12 green"></div>
+  <div id="test-swipe-2" class="col s12 white">
+    <div class="containerAct">
+      <div class="calificaciones">   
+        <h4>Actividades</h4>  
+        <button >Calificaciones</button>      
+      </div>
+      <div id="activities">
+        <div class="" id = "tareasCurso">
+        </div>
+      </div>
+
+              
+      </div>
+    </div>
+  </div>
+  <div id="modal1" class="modal">
+    <div class="modal-content">
+        <h5>Nota ultimo intento:</h5>
+        <p id ="notaEj">Sin nota</p>
+        <p id = "tituloFallos">Fallos intento:</p>
+        <p id ="fallosEj">Sin intentos</p>
+        <p id = "tituloAciertos">Aciertos intento:</p>
+        <p id ="aciertosEj">Sin intentos</p>
+        <p id = "tituloComentarios">Comentarios:</p>
+        <p id = "comentariosEj">...</p>
+        <p id = "pinEx">PIN de la VR:</p>
+        <p id = "tituloPin"></p>
+        <div class="modal-footer">
+          <!--<a class="waves-effect waves-light btn-small" id = "pinButton">PIN</a>-->
+
+          <a href="#!" class="modal-close waves-effect waves-green btn-flat" style="margin-left: 50%;">Cerrar</a>
+      </div>
+    </div>
+
+  <div id="test-swipe-3" class="col s12 white"></div>
   <!--  Scripts  -->
   <script src="cordova.js"></script>
   <script src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
