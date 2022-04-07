@@ -1,0 +1,54 @@
+.collection {
+    display: flex;
+    align-items: flex-start;
+}
+
+.collection-item {
+ margin-top: 20%;
+}
+
+.actividad {
+    display: flex;
+    justify-content: center;
+}
+
+.actividad button{
+    margin-top: 5%;
+    background-color: lightgray;
+    margin-left: 30%;
+    margin-right: 30%;
+}
+
+.fotoNav {
+    display: flex;
+    justify-content: left;
+    height: 50%;
+    width: 25%;
+}
+
+.calificaciones{
+    display: flex;
+    justify-content: left;
+}
+
+.calificaciones button {
+    margin-left: 20%;
+    margin-right: 5%;
+    max-height: 50%;
+    background-color: #157cb2;
+    padding: 3px;
+    margin-top: 10%;
+    margin-bottom: 10%;
+}
+
+.datosNav {
+    display:inline-flex;
+}
+
+.nombreNav{
+    justify-content: right;
+}
+
+nav{
+    background-color: #157cb2;
+}

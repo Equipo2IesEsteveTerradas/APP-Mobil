@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <title>Parallax Template - Materialize</title>
+
+  <!-- CSS  -->
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <link href="css/materialize.css" type="text/css" rel="stylesheet" media="screen,projection"/>
+  <link href="css/cursos.css" type="text/css" rel="stylesheet"/>
+  <meta name="format-detection" content="telephone=no">
+  <meta name="msapplication-tap-highlight" content="no">
+  <meta name="viewport" content="initial-scale=1, width=device-width, viewport-fit=cover">
+  <meta name="color-scheme" content="light dark">
+</head>
+<body>
+  <nav>
+    <div id="prueba">
+      <ul class="datosNav">
+        <img src="./img/LOGO_VR.png" class="fotoNav">
+        <li><a href="" class="nombreNav" id="userPrueba">Nombre: </a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <ul id="tabs-swipe-demo" class="tabs">
+    <li class="tab col s3"><a class="active" href="#test-swipe-1">Cursos</a></li>
+    <li class="tab col s3"><a href="#test-swipe-2">Detalles Curso</a></li>
+    <li class="tab col s3"><a href="#test-swipe-3">Others</a></li>
+  </ul>
+  <!--Page 1-->
+  <div id = "test-swipe-1" class="col s12">
+    <div class="container">
+      <div class="calificaciones">   
+        <h4>Cursos</h4>  
+        <button >Calificaciones</button>      
+      </div>
+        <div class="collection" id = "llista_principal">
+        </div>
+              
+      </div>
+    </div>
+  </div>
+  <div id="test-swipe-2" class="col s12 white">
+    <div class="containerAct">
+      <div class="calificaciones">   
+        <h4>Actividades</h4>  
+        <button >Calificaciones</button>      
+      </div>
+      <div id="activities">
+        <div class="" id = "tareasCurso">
+        </div>
+      </div>
+
+              
+      </div>
+    </div>
+  </div>
+  <div id="modal1" class="modal">
+    <div class="modal-content">
+      <h4>PIN REQUEST</h4>
+      <p id="pruebaPin">Tu numero pin es:</p>
+    </div>
+    <div class="modal-footer">
+      <a href="#!" class="modal-close waves-effect waves-green btn-flat">Agree</a>
+    </div>
+  </div>
+
+  <div id="test-swipe-3" class="col s12 white"></div>
+  <!--  Scripts  -->
+  <script src="cordova.js"></script>
+  <script src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+  <script src="js/materialize.js"></script>
+  <script src="js/cursos.js"></script>
+
+  </body>
+</html>
