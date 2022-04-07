@@ -24,13 +24,57 @@ document.addEventListener('deviceready', onDeviceReady, false);
 function idVrTasks(taskID) {
     return function(){
         $.ajax({
-            method: "GET",
-            url: "https://class-vr-room-api.herokuapp.com/api/pin_request",
-            data: {session_token: localStorage.getItem('userToken'), VRtaskID:taskID},
-            datatype: "json",
+            headers: { "Authorization": "Token "+localStorage.getItem("userToken") },
+        method: "GET",
+        url: "https://ietivroom.herokuapp.com/api/pin_request",
+        data: {"VRtaskID": taskID},
+        datatype: "json"
         }).done(function(dades){
-            //console.log(dades["pin"]);
-            $("#pruebaPin").text(dades["pin"]);
+        
+            console.log(dades);
+            $("#pruebaPin").text(dades["PIN"]);
+            $('#modal1').modal();
+            $('#modal1').modal('open');
+        }).fail(function() {
+            console.log("Error");
+        });
+    }
+}
+
+function grades(CursoAMostrar,taskID) {
+    return function(){
+        $.ajax({
+            headers: {"Authorization": "Token "+localStorage.getItem("userToken")},
+            method: "GET",
+            url: "https://ietivroom.herokuapp.com/api/get_course_details",
+            data: {"VRtaskID": taskID},
+            datatype: "json"
+        }).done(function(details){
+
+            //QUEDA REVIAR ESTA PARTE
+
+            console.log(details)
+            //Recorremos las diferentes VRTASKS
+            for (i in details["course_list"]["elements"]["tasks"]) {
+                //Comprobamos que la ID de la VrTask sea la que nos interesa
+                if (details["course_list"]["elements"]["tasks"][i]["taskID"] == taskID) {
+                    console.log(details["course_list"]["elements"]["tasks"][i]);
+                    //Recorremos y omprobamos las diferentes completions que haya del usuario
+                    for (j in details["course_list"]["elements"]["tasks"][i]["completions"]) {
+                        //if (details["course"]["elements"]["tasks"][i]["completions"][j]["studentID"] == localStorage.getItem("UserID")) {
+                            console.log(details["course_list"]["elements"]["tasks"][i]["completions"][j]["maxQualitication"])
+                            //Se pueden crear diccionarios para almacenar las diferentes cantidades de Datos
+                            //y luego que estos datos se vayan anadiendo mediante un for a una ul por cada completion
+                            
+                            //Se tiene que cambiar de sitio los dict
+                            let failedIt = {};
+                            let passedIt = {};
+                        //}
+                    }
+                    $("#pruebaPin").text(details["course_list"]["elements"]["tasks"][i]);
+
+                } 
+            }
             $('#modal1').modal();
             $('#modal1').modal('open');
         }).fail(function() {
@@ -46,6 +90,18 @@ function onDeviceReady() {
     $('.tabs').tabs({"swipeable":true});
     //$('.scrollspy').scrollSpy();
     //$('select').formSelect();
+    //console.log("Antes del pin request")
+    /*$.ajax({
+        headers: { "Authorization": "Token "+localStorage.getItem("userToken") },
+        method: "GET",
+        url: "https://ietivroom.herokuapp.com/api/pin_request",
+        data: {"VRtaskID": "1"},
+        datatype: "json"
+    }).done(function(prueba) {
+        console.log("Dentro de funcion");
+        console.log(prueba);
+    });*/
+    //console.log("Despues pin request");
 
     //document.getElementById('deviceready').classList.add('ready');
     console.log("Nombre de usuario"+localStorage.getItem("username"))
@@ -53,22 +109,23 @@ function onDeviceReady() {
     console.log(newNombre);
     $('#userPrueba').text(newNombre);
 
-
-
     console.log("El token es: "+localStorage.getItem("userToken"));
     $('#llista_principal').empty();
 
     $.ajax({
+        headers: { "Authorization": "Token "+localStorage.getItem("userToken") },
         method: "GET",
-        url: "https://class-vr-room-api.herokuapp.com/api/get_courses",
+        url: "https://ietivroom.herokuapp.com/api/get_courses",
         datatype: "json"
     }).done(function(courses) {
+        console.log(courses);
         let IdCursos = [];
         for (i in courses["course_list"]) {
-            console.log(courses["course_list"][i]["title"]);
-            console.log(courses["course_list"][i]["courseID"]);
+            //console.log(courses["course_list"][i]["title"]);
+            //console.log(courses["course_list"][i]["courseID"]);
             let newElement = $("<div id="+`${courses["course_list"][i]["courseID"]}`+" class='collection-item' href='#!'>"+courses["course_list"][i]["title"]+"</div>");
             IdCursos.push(courses["course_list"][i]["courseID"])
+
         newElement.click( function() {
             console.log(newElement);
             let CursoAMostrar = "";
@@ -79,14 +136,17 @@ function onDeviceReady() {
                 }
 
             }
-            console.log(CursoAMostrar);
 
             $.ajax({
+                headers: { "Authorization": "Token "+localStorage.getItem("userToken") },
                 method: "GET",
                 //Para que las tascas funcionen bien se tendra que poner ya la URL pertinente al curso
-                url: "https://class-vr-room-api.herokuapp.com/api/get_course_details?id="+CursoAMostrar,
+                url: "https://ietivroom.herokuapp.com/api/get_course_details",
+                //url: "https://ietivroom.herokuapp.com/api/get_course_details?id="+CursoAMostrar,
+                data: {courseID: CursoAMostrar},
                 datatype: "json"
             }).done(function(details) {
+                console.log(details);
                 //Creacion de objetos graficos
                 //Vaciando el div de la pagina 2
                 $('#activities').empty();
@@ -95,16 +155,17 @@ function onDeviceReady() {
                 $('#activities').append(newVrtaskHeader);
 
 
-                for (j in details["course"][0]["vr_tasks"]) {
+                //Creo que el problema esta en la diferencia de los puntos
+                for (j in details["course_list"]["elements"]["tasks"]) {
             
-                    let newvrtask = $("<div class='actividad'><button class='actividad' href='#!'>"+details["course"][0]["vr_tasks"][j]["title"]+"</button></div>");
-                    let idVr = details["course"][0]["vr_tasks"][j]["ID"];
+                    let newvrtask = $("<div class='actividad'><button class='actividad' href='#!'>"+details["course_list"]["elements"]["tasks"][j]["title"]+"</button></div>");
+                    let idVr = details["course_list"]["elements"]["tasks"][j]["taskID"];
                     newvrtask.click(idVrTasks(idVr));
                     $('#activities').append(newvrtask);
 
                 }
 
-                let newtaskHeader = $("<div class='actividad'>"+"TASKS"+"</div>")
+                /*let newtaskHeader = $("<div class='actividad'>"+"TASKS"+"</div>")
                 $('#activities').append(newtaskHeader);
 
                 for (j in details["course"][0]["tasks"]) {
@@ -112,20 +173,19 @@ function onDeviceReady() {
                     let newtask = $("<div class='actividad'><button class='actividad' href='#!'>"+details["course"][0]["tasks"][j]["title"]+"</button></div>");
                     $('#activities').append(newtask);
 
-                }
+                }*/
 
                     //Agregando objetos graficos a la pagina 2
-                //$('#test-swipe-2').append(newimage);
                 //Saltamos a la pagina 2
                 $('.tabs').tabs("select", "test-swipe-2");
                 })
             });
 
-        //$('#llista_principal').append(newVrHeader);
         $('#llista_principal').append(newElement);
         }
 
-        //localStorage.setItem("IdCurso",courses["course_list"][i]["courseID"]);
-        //localStorage.setItem("IdCurso",IdCursos);
+
+    }).fail(function(){
+        console.log("Todo mal")
     });
 };

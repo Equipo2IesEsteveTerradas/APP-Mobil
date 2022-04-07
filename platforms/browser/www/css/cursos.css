@@ -1,4 +1,3 @@
-
 .collection {
     display: flex;
     align-items: flex-start;
@@ -16,6 +15,8 @@
 .actividad button{
     margin-top: 5%;
     background-color: lightgray;
+    margin-left: 30%;
+    margin-right: 30%;
 }
 
 .fotoNav {
@@ -31,11 +32,14 @@
 }
 
 .calificaciones button {
+
     margin-left: 20%;
     margin-right: 5%;
     max-height: 50%;
     background-color: #157cb2;
     padding: 3px;
+    margin-top: 10%;
+    margin-bottom: 10%;
 }
 
 .datosNav {

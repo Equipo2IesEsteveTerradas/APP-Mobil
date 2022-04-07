@@ -7,6 +7,17 @@
 .collection-item {
  margin-top: 20%;
 }
+
+.actividad {
+    display: flex;
+    justify-content: center;
+}
+
+.actividad button{
+    margin-top: 5%;
+    background-color: lightgray;
+}
+
 .fotoNav {
     display: flex;
     justify-content: left;
@@ -20,7 +31,7 @@
 }
 
 .calificaciones button {
-    margin-left: 25%;
+    margin-left: 20%;
     margin-right: 5%;
     max-height: 50%;
     background-color: #157cb2;
